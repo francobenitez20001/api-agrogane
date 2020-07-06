@@ -12,12 +12,18 @@ const {config} = require('./config/index.js');
 app.use(express.json());
 
 //rutas
-const casoExitoApi = require('./routes/casoExto.js');
+const casoExitoApi = require('./routes/casoExito.js');
+const articulosApi = require('./routes/articulos.js');
+const autorApi = require('./routes/autores.js');
+const contactoApi = require('./routes/contacto.js');
 
 
 
 //definicion de rutas
 casoExitoApi(app);
+articulosApi(app);
+autorApi(app);
+contactoApi(app);
 
 
 app.listen(config.port,()=>{
