@@ -16,7 +16,7 @@ const casoExitoApi = require('./routes/casoExito.js');
 const articulosApi = require('./routes/articulos.js');
 const autorApi = require('./routes/autores.js');
 const contactoApi = require('./routes/contacto.js');
-
+const nosotrosApi = require('./routes/nosotros.js');
 
 
 //definicion de rutas
@@ -24,6 +24,7 @@ casoExitoApi(app);
 articulosApi(app);
 autorApi(app);
 contactoApi(app);
+nosotrosApi(app);
 
 
 app.listen(config.port,()=>{
