@@ -17,7 +17,7 @@ const articulosApi = require('./routes/articulos.js');
 const autorApi = require('./routes/autores.js');
 const contactoApi = require('./routes/contacto.js');
 const nosotrosApi = require('./routes/nosotros.js');
-
+const serviciosApi = require('./routes/servicios.js');
 
 //definicion de rutas
 casoExitoApi(app);
@@ -25,7 +25,7 @@ articulosApi(app);
 autorApi(app);
 contactoApi(app);
 nosotrosApi(app);
-
+serviciosApi(app);
 
 app.listen(config.port,()=>{
     console.log(`listening http://localhost:${config.port}`);
