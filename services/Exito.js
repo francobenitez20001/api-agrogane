@@ -20,8 +20,8 @@ class ExitoService{
         return caso;
     }
 
-    async create(caso){
-        const response = await this.ExitoModel.create(caso).then(res=>{
+    async create(caso,avatar){
+        const response = await this.ExitoModel.create(caso,avatar).then(res=>{
             return res;
         })
         return response;

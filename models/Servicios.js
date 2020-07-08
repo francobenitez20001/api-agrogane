@@ -24,7 +24,7 @@ class ServiciosModel{
 
     create(servicio){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_SERVICIOS_ADD_UPDATE(0,'${servicio.titulo}','${servicio.descripcion}','${servicio.icono}')`;
+            let query = `CALL SP_SERVICIOS_ADD_UPDATE(0,'${servicio.titulo}','${servicio.descripcion}','')`;
             this.db.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
@@ -34,7 +34,7 @@ class ServiciosModel{
 
     update(id,servicio){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_SERVICIOS_ADD_UPDATE(${id},'${servicio.titulo}','${servicio.descripcion}','${servicio.icono}')`;
+            let query = `CALL SP_SERVICIOS_ADD_UPDATE(${id},'${servicio.titulo}','${servicio.descripcion}','')`;
             this.db.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);

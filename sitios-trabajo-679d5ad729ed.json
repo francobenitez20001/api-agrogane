@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sitios-trabajo",
+  "private_key_id": "679d5ad729edfd53a8cf5a44f69dcda9426c016d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDsXZLV7OByDhCE\ncvWMP/cpJzeuJopB8YDc7wLDI3OhHmAGB0okXR59QdahpTFaq/0IuA+BWVjTavcD\nkCL7JXLwW9pDDhMEEXSi090KbLE3TyqQRnvdJxm0bqgIFB884m6mwVgtk6HBiOYX\nW7BtILIZwvF2W2M445crDEV7zEBWv9oTMC3AoaeJWCM/ERHdDQp5WvoH8QilGEVN\nTde4P7wN/NaYtVNnyN0ZJdmGnfoHyu9IwGVt3N9kh3gyq6Dh2wIW2zb7TLBaG2Fu\nQhUbcwa+VropYlz7ru7AZbi/6VHfpyU0Zq+lp/3sG6kADm6OB5CKU0d/Qg1wvlOO\naBgXcLKLAgMBAAECggEARuwC4Zasd/yZXyyhWf5deqcuUV52ELhWurQqx4OtL9SN\n6nEogYXBXsMxFBqdlv/RMlsMJ/s3qGRJjvOiU2pWtSFSedlQwmE8dpkMk5KukBJ8\nioLjqqWPVHD5kUb8YofsvLN58l8AY7Jgm/SimPP9DLbOPf3I5WqA0uVhOfa8/WoK\n6ZNIcHb3tGxPO3IGdDZ0LKbf/AvN0wexPpJBgopMGW4qccLh0CSwxow14L5QmfWm\n98mCzeuQJhZIUYVXuSS3RGhY6VQBLzPXCN2KNSQewqLb7GiPqpEdHjN2X/NfpIvW\n2d9ybwHMBrwxkKwtMOODOqxcWp+zDpQPXdwO3lHJ/QKBgQD8ZGF0SKdPTcR6onEe\nvbG/ccT1pIre5GpEaOtwvpEulqrjSKUEgT3bEwdRP3zA7kwOknUuiw5RK4/7y0cv\n2ldYAtMrN01OnoUZfaX5/2dfQTy7HqQtzyfbpGcJuMs2PAnnsdpMSwtl0g+ONZ4T\n438tdzTEPSGA8o695vse4/g5rwKBgQDvvotQqt40BgTbo/u8s9oc9nQC57vTZA9o\n834BtT1+HU0R9ynWFvH/VR8bKjT5VPx/5tOdAnMjuu4e1jjl+u0j9hTGFsUB1i7r\nIRAwm2gXsoIGf33xr7rSABUYB1lEz5CEIcW5PKCadtORg3+iDTWfAJzFav28O/W3\n9V/NaKe35QKBgFjMsIULMuJyCBjloksgjrM+wf9zHvEBCGp9R6jpQ4dSt1k0K+sD\n1dGIRmDNp4Tx0oyl9tijUCw62XPLt4YcmfJ7O/TOhkKM/2NSk9z7gVFAUK+9PiJn\n6iwbEa2X+NdiFFISfy2skZwHZjWwo6d3uT0z3brVjz4hGRuzctMRfjo9AoGAbL0S\n+UKWyCfWujx1aJB2pF5QHiU3NtkSeDrAc0veGT52/2gIjLcZigL0ueB56IDYibaL\nUpKS4KjfahMl+YHHX2E06OfY8U1ROIplinZiTyVC/mmDGUToSmmJJ73limVOme+r\ne6n4+jZdHYn0MO8m2/huIsi1T1QuzgI4MrV+JNUCgYEApUOhlzPpXPLs2PAFTbJF\ng0kpXu5isotJKI/iQtrmDShGSKFd2ol7nmO+jhdKoF3xAdc9oV+nCcWnsvx/Vnom\nkm8dpL9a8ac/Ti+jI6TtDEEgzq6pxFt1ik11NH8ivExqZzWZNTFzmMFDjb3kYwNK\nGGt21yLfII6+AzWxHkkSgm8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "probando-cloud-storage@sitios-trabajo.iam.gserviceaccount.com",
+  "client_id": "112481584527247112700",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/probando-cloud-storage%40sitios-trabajo.iam.gserviceaccount.com"
+}

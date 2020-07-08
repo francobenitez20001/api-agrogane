@@ -22,21 +22,21 @@ class ExitoModel{
         })
     }
 
-    create(caso){
+    create(caso,avatar){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_CASOEXITO_ADD_UPDATE(${caso.idCaso},'${caso.titulo}','${caso.subtitulo}','${caso.descripcion}','${caso.foto}')`;
+            let query = `CALL SP_CASOEXITO_ADD_UPDATE(0,'${caso.titulo}','${caso.subtitulo}','${caso.descripcion}','${avatar}')`;
             this.db.query(query,(err,res,fiels)=>{
-                if(err) throw console.log(err);
+                if(err) throw new Error(err);
                 resolve(res);
             })
         })
     }
 
-    update(id,caso){
+    update(id,caso,avatar){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_CASOEXITO_ADD_UPDATE(${id},'${caso.titulo}','${caso.subtitulo}','${caso.descripcion}','${caso.foto}')`;
+            let query = `CALL SP_CASOEXITO_ADD_UPDATE(${id},'${caso.titulo}','${caso.subtitulo}','${caso.descripcion}','${avatar}')`;
             this.db.query(query,(err,res,fiels)=>{
-                if(err) throw reject(err);
+                if(err) throw new Error(err);
                 resolve(res);
             })
         })

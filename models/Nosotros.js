@@ -25,9 +25,9 @@ class NosotrosModel{
 
     update(id,nosotros){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_CASOEXITO_ADD_UPDATE(${id},'${nosotros.descripcion}')`;
+            let query = `CALL SP_NOSOTROS_ADD_UPDATE(${id},'${nosotros.descripcion}')`;
             this.db.query(query,(err,res,fiels)=>{
-                if(err) throw reject(err);
+                if(err) throw console.log(err);
                 resolve(res);
             })
         })

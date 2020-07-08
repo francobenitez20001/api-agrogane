@@ -6,8 +6,8 @@ class ArticuloService{
         this.collection = 'autores';
     }
 
-    async getAutores(limit){
-        const autores = await this.AutorModel.getAll(limit).then(res=>{
+    async getAutores(){
+        const autores = await this.AutorModel.getAll().then(res=>{
             return res;
         })
         return autores;
@@ -20,8 +20,8 @@ class ArticuloService{
         return autor;
     }
 
-    async create(autor){
-        const response = await this.AutorModel.create(autor).then(res=>{
+    async create(autor,avatar){
+        const response = await this.AutorModel.create(autor,avatar).then(res=>{
             return res;
         })
         return response;

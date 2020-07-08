@@ -4,9 +4,9 @@ class AutorModel{
     constructor(){
         this.db = new MysqlLib();
     }
-    getAll(limit){
+    getAll(){
         return new Promise((resolve,reject)=>{
-            this.db.query(`SELECT * FROM autores ORDER BY idAutor DESC LIMIT ${limit}`,(err,res,fields)=>{
+            this.db.query(`SELECT * FROM autores ORDER BY idAutor DESC`,(err,res,fields)=>{
                 if(err) throw reject(err);
                 resolve(res);
             })
@@ -22,9 +22,9 @@ class AutorModel{
         })
     }
 
-    create(autor){
+    create(autor,avatar){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_AUTORES_ADD_UPDATE(${autor.idAutor},'${autor.nombre}','${autor.cargo}','${autor.descripcion}','${autor.tituloProfesional}', '${autor.testimonio}','${autor.foto}')`;
+            let query = `CALL SP_AUTORES_ADD_UPDATE(${autor.idAutor},'${autor.nombre}','${autor.cargo}','${autor.descripcion}','${autor.tituloProfesional}', '${autor.testimonio}','${avatar}')`;
             this.db.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);

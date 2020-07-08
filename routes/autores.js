@@ -6,8 +6,7 @@ function autorApi(app) {
     const autorService = new AutorService();
 
     router.get('/',async(req,res,next)=>{
-        const {limit} = req.query;
-        const autores = await autorService.getAutores(limit);
+        const autores = await autorService.getAutores();
         res.status(200).json({
             data:autores || [],
             info:'Autores Listados correctamente'

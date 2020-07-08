@@ -6,7 +6,7 @@ class ArticuloModel{
     }
     getAll(limit){
         return new Promise((resolve,reject)=>{
-            this.db.query(`SELECT idArticulo,titulo,fecha,nombre,imagen,archivo 
+            this.db.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
                         FROM articulos AS ar, autores AS au
                         WHERE ar.idAutor = au.idAutor 
                         ORDER BY idArticulo DESC LIMIT ${limit}`,(err,res,fields)=>{
@@ -18,7 +18,7 @@ class ArticuloModel{
 
     getOne(id){
         return new Promise((resolve,reject)=>{
-            this.db.query(`SELECT idArticulo,titulo,fecha,nombre,imagen,archivo 
+            this.db.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
                         FROM articulos AS ar, autores AS au
                         WHERE ar.idAutor = au.idAutor AND idArticulo = ${id}`,(err,res,fields)=>{
                 if(err)throw reject(err);
