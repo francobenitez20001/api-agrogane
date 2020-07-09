@@ -24,7 +24,7 @@ class AutorModel{
 
     create(autor,avatar){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_AUTORES_ADD_UPDATE(${autor.idAutor},'${autor.nombre}','${autor.cargo}','${autor.descripcion}','${autor.tituloProfesional}', '${autor.testimonio}','${avatar}')`;
+            let query = `CALL SP_AUTORES_ADD_UPDATE(0,'${autor.nombre}','${autor.cargo}','${autor.descripcion}','${autor.tituloProfesional}', '${autor.testimonio}','${avatar}');`;
             this.db.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
@@ -32,11 +32,11 @@ class AutorModel{
         })
     }
 
-    update(id,autor){
+    update(id,autor,avatar){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_AUTORES_ADD_UPDATE(${id},'${autor.nombre}','${autor.cargo}','${autor.descripcion}','${autor.tituloProfesional}', '${autor.testimonio}','${autor.foto}')`;
+            let query = `CALL SP_AUTORES_ADD_UPDATE(${id},'${autor.nombre}','${autor.cargo}','${autor.descripcion}','${autor.tituloProfesional}', '${autor.testimonio}','${avatar}')`;
             this.db.query(query,(err,res,fiels)=>{
-                if(err) throw reject(err);
+                if(err) throw new Error(err);
                 resolve(res);
             })
         })
