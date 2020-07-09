@@ -27,8 +27,8 @@ class ExitoService{
         return response;
     }
 
-    async update(newCaso,id){
-        const caso = await this.ExitoModel.update(id,newCaso).then(res=>{
+    async update(newCaso,id,avatar=null){
+        const caso = await this.ExitoModel.update(id,newCaso,avatar).then(res=>{
             return res;
         })
         return caso;

@@ -67,14 +67,39 @@ function casoExitoApi(app) {
         }
     });
 
-    router.put('/:id',async(req,res,next)=>{
-        const {id:idCaso} = req.params;
-        const {body:newCaso} = req;
-        const caso = await exitoService.update(newCaso,idCaso);
-        res.status(200).json({
-            data:caso,
-            info:'Caso modificado'
-        });
+    router.put('/:id',multer.single('foto'),async(req,res,next)=>{
+        try {
+            const {id:idCaso} = req.params;
+            const {body:newCaso} = req;
+            if(!req.file){
+                const caso = await exitoService.update(newCaso,idCaso);
+                res.status(200).json({
+                    data:caso,
+                    info:'Caso modificado'
+                });
+            }
+            const blob = bucket.file(req.file.originalname);
+            const blobStream = blob.createWriteStream();
+            
+            blobStream.on('error', (err) => {
+                next(err);
+            });
+            
+            blobStream.on('finish', async() => {
+                // The public URL can be used to directly access the file via HTTP.
+                const avatar = format(
+                  `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+                );
+                const response = await exitoService.update(newCaso,idCaso,avatar);
+                res.status(200).json({
+                    data:response,
+                    info:'Caso Modificado'
+                })
+            });
+            blobStream.end(req.file.buffer);
+        } catch (error) {
+            next(error);
+        }
     })
 
     router.delete('/:id',async (req,res,next)=>{
