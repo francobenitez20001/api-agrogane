@@ -1,6 +1,16 @@
 const express = require('express');
 const ArticuloService = require('../services/Articulos.js');
 const multer = require('../lib/multer.js');
+const path = require('path');
+const {Storage} = require('@google-cloud/storage');
+const {format} = require('util');
+
+const googleCloud = new Storage({
+    keyFilename:path.join(__dirname,'../sitios-trabajo-679d5ad729ed.json'),
+    projectId:'sitios-trabajo'
+})
+
+const bucket = googleCloud.bucket('agrogane-dev');
 
 function articulosApi(app) {
     const router = express.Router();
@@ -25,96 +35,62 @@ function articulosApi(app) {
         }) 
     });
 
-    router.post('/',multer.fields([
-        {name:'imagen'},
-        {name:'archivo'}
-    ]),async(req,res,next)=>{
+    router.post('/',multer.single('imagen'),async(req,res,next)=>{
         try {
-            if(!req.files){
+            if(!req.file){
                 res.status(400).send('No file');
                 return;
             }
-            let imagenes = [];
-            let keyObjImage = Object.keys(req.files);
-            let i = 0;
-            while (i < Object.keys(req.files).length) {
-                //req.files[Object.keys(req.files)[0]]; -> es cada array con el objeto de la imagen adentro.
-                //req.files[ Object.keys(req.files)[0] ][0]->el objeto de la imagen (siempre va ser la posicion 0 porque no trae otra cosas ademas del objeto con las propiedades de la imagen).
-                let objImage = req.files[keyObjImage[i]][0];
-                imagenes.push(objImage);
-                i++;
-            }
-            articuloService.uploadFile(imagenes[0]).then(link=>{
-                const imagen = link;
-                articuloService.uploadFile(imagenes[1]).then(async link=>{
-                    const archivo = link; 
-                    const {body:articulo} = req;
-                    const articuloRes = await articuloService.create(articulo,imagen,archivo);
-                    res.status(200).json({
-                        data:articuloRes,
-                        info:'Articulo creado'
-                    })
-                }).catch(err=>{
-                    res.status(400).json({
-                        info:err
-                    });
-                })
-            }).catch(err=>{
-                res.status(400).json({
-                    info:err
+            const blob = bucket.file(req.file.originalname);
+            const blobStream = blob.createWriteStream();
+             
+            blobStream.on('error', (err) => {
+                next(err);
+            });
+             
+            blobStream.on('finish', async() => {
+                // The public URL can be used to directly access the file via HTTP.
+                const imagen = format(
+                   `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+                );
+                const {body:articulo} = req;
+                const articuloRes = await articuloService.create(articulo,imagen);
+                console.log(articuloRes);
+                res.status(200).json({
+                    data:articuloRes,
+                    info:'Articulo creado'
                 });
             });
-            
+            blobStream.end(req.file.buffer);
         } catch (error) {
             next(error);   
         }
     });
 
-    router.put('/:id',multer.fields([
-        {name:'imagen'},
-        {name:'archivo'}
-    ]),async(req,res,next)=>{
+    router.put('/:id',multer.single('imagen'),async(req,res,next)=>{
         try {
             const {id:idArticulo} = req.params;
             const {body:newArticulo} = req;
-            if(Object.keys(req.files).length==0){
+            if(!req.file){
                 const articulo = await articuloService.update(newArticulo,idArticulo);
+                res.status(200).json({
+                    data:articulo,
+                    info:'Autor modificado'
+                });
+                return;
+            }
+            articuloService.uploadFile(req.file).then(async link=>{
+                const imagen = link;
+                const articulo = await articuloService.update(newArticulo,idArticulo,imagen);
                 res.status(200).json({
                     data:articulo,
                     info:'Articulo modificado'
                 });
-                return;
-            }
-            let imagenes = [];
-            let keyObjImage = Object.keys(req.files);
-            let i = 0;
-            while (i < Object.keys(req.files).length) {
-                let objImage = req.files[keyObjImage[i]][0];
-                imagenes.push(objImage);
-                i++;
-            }
-            articuloService.uploadFile(imagenes[0]).then(link=>{
-                const imagen = link;
-                articuloService.uploadFile(imagenes[1]).then(async link=>{
-                    const archivo = link; 
-                    const {id:idArticulo} = req.params;
-                    const {body:newArticulo} = req;
-                    const articulo = await articuloService.update(newArticulo,idArticulo,imagen,archivo);
-                    res.status(200).json({
-                        data:articulo,
-                        info:'Articulo modificado'
-                    });
-                }).catch(err=>{
-                    res.status(400).json({
-                        info:err
-                    });
-                })
             }).catch(err=>{
                 res.status(400).json({
                     info:err
                 });
-            });
-            
+            })
         } catch (error) {
             next(error);   
         }

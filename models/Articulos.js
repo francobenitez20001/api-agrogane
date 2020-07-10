@@ -27,9 +27,9 @@ class ArticuloModel{
         })
     }
 
-    create(articulo,imagen,archivo){
+    create(articulo,imagen){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${archivo}')`;
+            let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}')`;
             this.db.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
@@ -37,9 +37,9 @@ class ArticuloModel{
         })
     }
 
-    update(id,articulo,imagen,archivo){
+    update(id,articulo,imagen){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_ARTICULOS_ADD_UPDATE(${id},'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${archivo}')`;
+            let query = `CALL SP_ARTICULOS_ADD_UPDATE(${id},'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}')`;
             this.db.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);

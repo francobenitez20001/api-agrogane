@@ -31,15 +31,15 @@ class ArticuloService{
         return articulo;
     }
 
-    async create(articulo,imagen,archivo){
-        const response = await this.ArticuloModel.create(articulo,imagen,archivo).then(res=>{
+    async create(articulo,imagen){
+        const response = await this.ArticuloModel.create(articulo,imagen).then(res=>{
             return res;
         })
         return response;
     }
 
-    async update(newArticulo,id,imagen=null,archivo=null){
-        const articulo = await this.ArticuloModel.update(id,newArticulo,imagen,archivo).then(res=>{
+    async update(newArticulo,id,imagen=null){
+        const articulo = await this.ArticuloModel.update(id,newArticulo,imagen).then(res=>{
             return res;
         })
         return articulo;
