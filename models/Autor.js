@@ -1,4 +1,5 @@
-const connection = require('../lib/mysql2');
+const connection = require('../lib/mysql');
+
 class AutorModel{
     
     getAll(){
