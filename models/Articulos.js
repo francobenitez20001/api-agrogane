@@ -1,12 +1,9 @@
-const MysqlLib = require('../lib/mysql');
+const connection = require('../lib/mysql2');
 
 class ArticuloModel{
-    constructor(){
-        this.db = new MysqlLib();
-    }
     getAll(limit){
         return new Promise((resolve,reject)=>{
-            this.db.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
+            connection.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
                         FROM articulos AS ar, autores AS au
                         WHERE ar.idAutor = au.idAutor 
                         ORDER BY idArticulo DESC LIMIT ${limit}`,(err,res,fields)=>{
@@ -18,7 +15,7 @@ class ArticuloModel{
 
     getOne(id){
         return new Promise((resolve,reject)=>{
-            this.db.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
+            connection.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
                         FROM articulos AS ar, autores AS au
                         WHERE ar.idAutor = au.idAutor AND idArticulo = ${id}`,(err,res,fields)=>{
                 if(err)throw reject(err);
@@ -30,7 +27,7 @@ class ArticuloModel{
     create(articulo,imagen){
         return new Promise((resolve,reject)=>{
             let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}')`;
-            this.db.query(query,(err,res,fiels)=>{
+            connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
             })
@@ -40,7 +37,7 @@ class ArticuloModel{
     update(id,articulo,imagen){
         return new Promise((resolve,reject)=>{
             let query = `CALL SP_ARTICULOS_ADD_UPDATE(${id},'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}')`;
-            this.db.query(query,(err,res,fiels)=>{
+            connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
             })
@@ -49,7 +46,7 @@ class ArticuloModel{
 
     delete(id){
         return new Promise((resolve,reject)=>{
-            this.db.query(`CALL SP_ARTICULOS_DELETE(${id})`,(err,res,fiels)=>{
+            connection.query(`CALL SP_ARTICULOS_DELETE(${id})`,(err,res,fiels)=>{
                 if(err) throw reject(err);
                 resolve(res);
             })
