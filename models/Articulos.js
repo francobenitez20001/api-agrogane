@@ -15,7 +15,7 @@ class ArticuloModel{
 
     getOne(id){
         return new Promise((resolve,reject)=>{
-            connection.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo,resumen 
+            connection.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,foto,cargo,imagen,archivo,resumen 
                         FROM articulos AS ar, autores AS au
                         WHERE ar.idAutor = au.idAutor AND idArticulo = ${id}`,(err,res,fields)=>{
                 if(err)throw reject(err);
