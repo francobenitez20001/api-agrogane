@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "DEBUG=APP:* nodemon index",
+    "dev": "DEBUG=APP:* & nodemon index",
     "start": "NODE_ENV=production node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
