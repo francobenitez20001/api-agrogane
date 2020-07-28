@@ -15,7 +15,7 @@ class ArticuloModel{
 
     getOne(id){
         return new Promise((resolve,reject)=>{
-            connection.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,imagen,archivo 
+            connection.query(`SELECT idArticulo,titulo,fecha,ar.idAutor,nombre,foto,cargo,imagen,archivo,resumen 
                         FROM articulos AS ar, autores AS au
                         WHERE ar.idAutor = au.idAutor AND idArticulo = ${id}`,(err,res,fields)=>{
                 if(err)throw reject(err);
@@ -26,7 +26,7 @@ class ArticuloModel{
 
     create(articulo,imagen){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}')`;
+            let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}','${articulo.resumen}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
@@ -36,7 +36,7 @@ class ArticuloModel{
 
     update(id,articulo,imagen){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_ARTICULOS_ADD_UPDATE(${id},'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}')`;
+            let query = `CALL SP_ARTICULOS_ADD_UPDATE(${id},'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}','${articulo.resumen}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);

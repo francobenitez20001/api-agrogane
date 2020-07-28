@@ -4,7 +4,7 @@ class ServiciosModel{
     getAll(){
         return new Promise((resolve,reject)=>{
             connection.query(`SELECT * FROM servicios`,(err,res,fields)=>{
-                if(err) throw reject(err);
+                if(err) throw console.log(err);
                 resolve(res);
             })
         })
