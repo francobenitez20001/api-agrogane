@@ -10,9 +10,9 @@ class NosotrosModel{
         })
     }
 
-    create(nosotros){
+    create(nosotros,header){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_NOSOTROS_ADD_UPDATE(0,'${nosotros.descripcion}')`;
+            let query = `CALL SP_NOSOTROS_ADD_UPDATE(0,'${nosotros.descripcion}','${nosotros.header}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
@@ -20,9 +20,9 @@ class NosotrosModel{
         })
     }
 
-    update(id,nosotros){
+    update(id,nosotros,header){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_NOSOTROS_ADD_UPDATE(${id},'${nosotros.descripcion}')`;
+            let query = `CALL SP_NOSOTROS_ADD_UPDATE(${id},'${nosotros.descripcion}','${header}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);

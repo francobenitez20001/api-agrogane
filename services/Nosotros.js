@@ -20,8 +20,8 @@ class NosotrosService{
         return response;
     }
 
-    async update(nosotros,id){
-        const data = await this.NosotrosModel.update(id,nosotros).then(res=>{
+    async update(nosotros,id,header=null){
+        const data = await this.NosotrosModel.update(id,nosotros,header).then(res=>{
             return res;
         })
         return data;
