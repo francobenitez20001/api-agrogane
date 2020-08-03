@@ -13,7 +13,7 @@ class ContactoModel{
 
     create(contacto){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_CONTACTO_ADD_UPDATE(${contacto.idContacto},'${contacto.telefonoPrincipal}','${contacto.telefonoSecundario}','${contacto.email}','${contacto.facebook}', '${contacto.instagram}','${contacto.twitter}','${contacto.linkedin}')`;
+            let query = `CALL SP_CONTACTO_ADD_UPDATE(${contacto.idContacto},'${contacto.telefonoPrincipal}','${contacto.telefonoSecundario}','${contacto.email}','${contacto.email_personal}','${contacto.facebook}', '${contacto.instagram}','${contacto.twitter}','${contacto.linkedin}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);
@@ -23,7 +23,7 @@ class ContactoModel{
 
     update(id,contacto){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_CONTACTO_ADD_UPDATE(${id},'${contacto.telefonoPrincipal}','${contacto.telefonoSecundario}','${contacto.email}','${contacto.facebook}', '${contacto.instagram}','${contacto.twitter}','${contacto.linkedin}')`;
+            let query = `CALL SP_CONTACTO_ADD_UPDATE(${id},'${contacto.telefonoPrincipal}','${contacto.telefonoSecundario}','${contacto.email}','${contacto.email_personal}','${contacto.facebook}', '${contacto.instagram}','${contacto.twitter}','${contacto.linkedin}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw reject(err);
                 resolve(res);
