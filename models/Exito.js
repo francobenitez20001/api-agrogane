@@ -3,7 +3,7 @@ const connection = require('../lib/mysql');
 class ExitoModel{
     getAll(limit){
         return new Promise((resolve,reject)=>{
-            connection.query(`SELECT * FROM casoExito ORDER BY idCaso DESC LIMIT ${limit}`,(err,res,fields)=>{
+            connection.query(`SELECT * FROM casoexito ORDER BY idCaso DESC LIMIT ${limit}`,(err,res,fields)=>{
                 if(err) throw reject(err);
                 resolve(res);
             })
@@ -12,7 +12,7 @@ class ExitoModel{
 
     getOne(id){
         return new Promise((resolve,reject)=>{
-            connection.query(`SELECT * FROM casoExito WHERE idCaso = ${id}`,(err,res,fields)=>{
+            connection.query(`SELECT * FROM casoexito WHERE idCaso = ${id}`,(err,res,fields)=>{
                 if(err)throw reject(err);
                 resolve(res);
             })
