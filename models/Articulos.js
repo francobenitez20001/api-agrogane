@@ -26,7 +26,7 @@ class ArticuloModel{
 
     create(articulo,imagen){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen}','${articulo.archivo}','${articulo.resumen}')`;
+            let query = `CALL SP_ARTICULOS_ADD_UPDATE(0,'${articulo.titulo}','${articulo.fecha}',${articulo.idAutor},'${imagen.filename}','${articulo.archivo}','${articulo.resumen}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw console.log(err);
                 resolve(res);

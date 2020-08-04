@@ -27,7 +27,7 @@ class ArticuloService{
         return response;
     }
 
-    async update(newAutor,id,avatar=null){
+    async update(newAutor,id,avatar){
         const autor = await this.AutorModel.update(id,newAutor,avatar).then(res=>{
             return res;
         })

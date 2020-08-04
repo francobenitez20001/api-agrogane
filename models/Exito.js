@@ -21,7 +21,7 @@ class ExitoModel{
 
     create(caso,avatar){
         return new Promise((resolve,reject)=>{
-            let query = `CALL SP_CASOEXITO_ADD_UPDATE(0,'${caso.titulo}','${caso.subtitulo}','${caso.descripcion}','${avatar}')`;
+            let query = `CALL SP_CASOEXITO_ADD_UPDATE(0,'${caso.titulo}','${caso.subtitulo}','${caso.descripcion}','${avatar.filename}')`;
             connection.query(query,(err,res,fiels)=>{
                 if(err) throw new Error(err);
                 resolve(res);

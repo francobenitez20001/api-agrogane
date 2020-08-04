@@ -1,16 +1,4 @@
 const ArticuloModel = require('../models/Articulos.js');
-const path = require('path');
-const {Storage} = require('@google-cloud/storage');
-const {format} = require('util');
-const { rejects } = require('assert');
-
-const googleCloud = new Storage({
-    keyFilename:path.join(__dirname,'../agrogane-cloud.json'),
-    projectId:'sitios-trabajo'
-})
-
-const bucket = googleCloud.bucket('agrogane-dev');
-
 class ArticuloService{
     constructor() {
         this.ArticuloModel = new ArticuloModel();
@@ -38,7 +26,7 @@ class ArticuloService{
         return response;
     }
 
-    async update(newArticulo,id,imagen=null){
+    async update(newArticulo,id,imagen){
         const articulo = await this.ArticuloModel.update(id,newArticulo,imagen).then(res=>{
             return res;
         })
@@ -50,23 +38,6 @@ class ArticuloService{
             return res;
         })
         return response;
-    }
-
-    async uploadFile(file){
-        return new Promise((resolve,reject)=>{
-            const blob = bucket.file(file.originalname);
-            const blobStream = blob.createWriteStream();
-            blobStream.on('error', (err) => {
-                reject(err)
-            });
-            
-            blobStream.on('finish', async() => {
-                resolve(format(
-                  `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-                ));
-            });
-            blobStream.end(file.buffer);
-        })
     }
 }
 
