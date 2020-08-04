@@ -1,16 +1,6 @@
 const express = require('express');
 const ExitoService = require('../services/Exito.js');
 const upload = require('../lib/multer');
-const path = require('path');
-const {Storage} = require('@google-cloud/storage');
-const {format} = require('util');
-
-const googleCloud = new Storage({
-    keyFilename:path.join(__dirname,'../agrogane-cloud.json'),
-    projectId:'sitios-trabajo'
-})
-
-const bucket = googleCloud.bucket('agrogane-dev');
 
 function casoExitoApi(app) {
     const router = express.Router();
