@@ -27,6 +27,8 @@ contactoApi(app);
 nosotrosApi(app);
 serviciosApi(app);
 
+app.use('/public/img',express.static(`${__dirname}/public/img`));
+
 app.listen(config.port,()=>{
     console.log(`listening http://localhost:${config.port}`);
 })
