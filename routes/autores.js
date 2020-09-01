@@ -24,37 +24,59 @@ function autorApi(app) {
         }) 
     });
 
-    router.post('/',upload.single('foto'),async(req,res,next)=>{
+    router.post('/',upload.fields([{
+            name: 'foto', maxCount: 1
+        }, {
+            name: 'cv', maxCount: 1
+        }]),async(req,res,next)=>{
         try {
-            if (!req.file) {
+            if (!req.files) {
                 res.status(400).send('No file uploaded.');
                 return;
             }
             const {body:autor} = req;
-            const {file:avatar} = req;
-            const response = await autorService.create(autor,avatar.filename);
+            let cv = null;
+            let foto = req.files.foto[0].filename;
+            if(req.files.cv){
+                cv = req.files.cv[0].filename;
+            }
+            const response = await autorService.create(autor,foto,cv);
             res.status(200).json({
                 data:response,
-                info:'Autor creado'
+                info:'Autor Insertado'
             })
         } catch (error) {
             next(error);
         }
     });
 
-    router.put('/:id',upload.single('foto'),async(req,res,next)=>{
+    router.put('/:id',upload.fields([{
+            name: 'foto', maxCount: 1
+        }, {
+            name: 'cv', maxCount: 1
+        }]),async(req,res,next)=>{
         try {
             const {id:idAutor} = req.params;
             const {body:newAutor} = req;
-            if(!req.file){
-                const autor = await autorService.update(newAutor,idAutor,null);
+            if(!req.files){
+                console.log('actualizando sin fotos');
+                const autor = await autorService.update(newAutor,idAutor);
                 return res.status(200).json({
                     data:autor,
                     info:'Autor modificado'
                 });
             }
-            const {file:avatar} = req;
-            const autor = await autorService.update(newAutor,idAutor,avatar.filename);
+            let cv = null;
+            let foto = null;
+            if(req.files.cv){
+                console.log('actualizando con cv');
+                cv = req.files.cv[0].filename;
+            }
+            if(req.files.foto){
+                console.log('actualizando con foto');
+                foto = req.files.foto[0].filename;
+            }
+            const autor = await autorService.update(newAutor,idAutor,foto,cv);
             res.status(200).json({
                 data:autor,
                 info:'Autor modificado'

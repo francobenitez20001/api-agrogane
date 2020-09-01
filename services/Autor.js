@@ -20,16 +20,20 @@ class ArticuloService{
         return autor;
     }
 
-    async create(autor,avatar){
-        const response = await this.AutorModel.create(autor,avatar).then(res=>{
+    async create(autor,avatar,cv=null){
+        const response = await this.AutorModel.create(autor,avatar,cv).then(res=>{
             return res;
+        }).catch(err=>{
+            return err;
         })
         return response;
     }
 
-    async update(newAutor,id,avatar){
-        const autor = await this.AutorModel.update(id,newAutor,avatar).then(res=>{
+    async update(newAutor,id,avatar=null,cv=null){
+        const autor = await this.AutorModel.update(id,newAutor,avatar,cv).then(res=>{
             return res;
+        }).catch(err=>{
+            return err;
         })
         return autor;
     }
