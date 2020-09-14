@@ -8,7 +8,7 @@ class ArticuloService{
     async getArticulos(limit){
         const articulos = await this.ArticuloModel.getAll(limit).then(res=>{
             return res;
-        })
+        }).catch(err=>err);
         return articulos;
     }
 
@@ -19,15 +19,15 @@ class ArticuloService{
         return articulo;
     }
 
-    async create(articulo,imagen){
-        const response = await this.ArticuloModel.create(articulo,imagen).then(res=>{
+    async create(articulo,archivo=null,imagen){
+        const response = await this.ArticuloModel.create(articulo,archivo,imagen).then(res=>{
             return res;
-        })
+        }).catch(err=>err);
         return response;
     }
 
-    async update(newArticulo,id,imagen){
-        const articulo = await this.ArticuloModel.update(id,newArticulo,imagen).then(res=>{
+    async update(newArticulo,id,imagen=null,archivo=null){
+        const articulo = await this.ArticuloModel.update(id,newArticulo,imagen,archivo).then(res=>{
             return res;
         })
         return articulo;
@@ -36,7 +36,7 @@ class ArticuloService{
     async delete(id){
         const response = await this.ArticuloModel.delete(id).then(res=>{
             return res;
-        })
+        }).catch(err=>err);
         return response;
     }
 }

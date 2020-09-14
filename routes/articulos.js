@@ -7,7 +7,7 @@ function articulosApi(app) {
     const router = express.Router();
     app.use("/api/articulos",router);
     const articuloService = new ArticuloService();
-
+    console.log(articuloService);
     router.get('/',async(req,res,next)=>{
         const {limit} = req.query;
         const articulos = await articuloService.getArticulos(limit);
@@ -26,40 +26,60 @@ function articulosApi(app) {
         }) 
     });
 
-    router.post('/',upload.single('imagen'),async(req,res,next)=>{
+    router.post('/',upload.fields([
+        {name:'imagen',maxCount:1},
+        {name:'archivo',maxCount:1}
+    ]),async(req,res,next)=>{
         try {
-            if(!req.file){
+            if(!req.files){
                 res.status(400).send('No file');
                 return;
             }
-            const {body:articulo} = req;
-            const {file:imagen} = req;
-            const articuloRes = await articuloService.create(articulo,imagen);
-            console.log(articuloRes);
-            res.status(200).json({
-                data:articuloRes,
-                info:'Articulo creado'
-            });
+            if(!req.files.archivo){
+                const {body:articulo} = req;
+                const imagen = req.files.imagen[0];
+                const articuloRes = await articuloService.create(articulo,'',imagen);
+                return res.status(200).json({
+                    data:articuloRes,
+                    info:'Articulo creado'
+                });
+            }else{
+                let imagen = '';
+                let archivo = req.files.archivo[0];
+                if(req.files.imagen !== undefined){
+                    imagen = req.files.imagen[0];
+                }
+                const {body:articulo} = req;
+                const articuloRes = await articuloService.create(articulo,archivo,imagen);
+                return res.status(200).json({
+                    data:articuloRes,
+                    info:'Articulo creado'
+                });
+            }
         } catch (error) {
             next(error);   
         }
     });
 
-    router.put('/:id',upload.single('imagen'),async(req,res,next)=>{
+    router.put('/:id',upload.fields([
+        {name:'imagen',maxCount:1},
+        {name:'archivo',maxCount:1}
+    ]),async(req,res,next)=>{
         try {
+            console.log('archivos:');
+            console.log(req.files);
             const {id:idArticulo} = req.params;
             const {body:newArticulo} = req;
-            if(!req.file){
-                const articulo = await articuloService.update(newArticulo,idArticulo,null);
-                res.status(200).json({
-                    data:articulo,
-                    info:'Autor modificado'
-                });
-                return;
+            let imagen = null;
+            let archivo = null;
+            if(req.files.imagen){
+                imagen = req.files.imagen[0];
             }
-            const {file:imagen} = req;
-            const articulo = await articuloService.update(newArticulo,idArticulo,imagen.filename);
-            res.status(200).json({
+            if(req.files.archivo && req.files.archivo !== undefined){
+                archivo = req.files.archivo[0];
+            } 
+            const articulo = await articuloService.update(newArticulo,idArticulo,imagen,archivo);
+            return res.status(200).json({
                 data:articulo,
                 info:'Articulo modificado'
             });
@@ -71,6 +91,7 @@ function articulosApi(app) {
     router.delete('/:id',async (req,res,next)=>{
         const {id:idArticulo} = req.params;
         const response = await articuloService.delete(idArticulo);
+        console.log(response);
         res.status(200).json({
             data:response,
             info:'Articulo eliminado'
